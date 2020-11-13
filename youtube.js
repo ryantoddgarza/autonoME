@@ -66,6 +66,7 @@ function handleIsResults() {
   const resultsComponentTags = [
     'ytd-shelf-renderer',
     'ytd-carousel-ad-renderer',
+    'ytd-horizontal-card-list-renderer',
   ];
 
   resultsComponentTags.forEach((tagName) => {
@@ -96,12 +97,11 @@ function runForCurrentPage() {
 }
 
 function burst() {
-  const burstRate = 2000;
+  const burstRate = 1000;
   const burstLength = 4000;
-  const repeatAfter = 10 * 1000;
   let intervalID = null;
 
-  function go() {
+  function start() {
     intervalID = window.setInterval(() => {
       runForCurrentPage();
     }, burstRate);
@@ -111,24 +111,42 @@ function burst() {
     window.clearTimeout(intervalID);
   }
 
-  function sleep(ms) {
+  function duration(ms) {
     return new Promise((resolve) => setTimeout(resolve, ms));
   }
 
-  async function run() {
-    go();
-    await sleep(burstLength);
+  async function runBurst() {
+    start();
+    await duration(burstLength);
     stop();
   }
 
-  run();
+  runBurst();
+}
+
+function onURLChange() {
+  burst();
+}
+
+function getURL() {
+  return window.location.href;
+}
+
+function pollForURLChange() {
+  let currentPage = getURL();
+  const repeatRate = 1 * 1000;
+
   window.setInterval(() => {
-    run();
-  }, repeatAfter);
+    if (getURL() !== currentPage) {
+      onURLChange();
+      currentPage = getURL();
+    }
+  }, repeatRate);
 }
 
 function init() {
   burst();
+  pollForURLChange();
 }
 
 init();

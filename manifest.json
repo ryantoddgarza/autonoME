@@ -1,16 +1,15 @@
 {
-  "manifest_version": 2,
   "name": "autonoME",
-  "description": "Autonomy is the capacity to act according to reasons and motives that are taken as one’s own; not the product of manipulative or distorting external force. Kindly dismiss parts of the web that infringe upon yours.",
-  "version": "0.0.1",
+  "description": "Kindly dismiss some of YouTube's recommendation components. For the times when you just want to use it like a search engine.",
+  "version": "0.0.2",
   "author": "Ryan Todd Garza",
   "permissions": ["activeTab"],
   "content_scripts": [
     {
       "matches": ["https://*.youtube.com/*"],
       "run_at": "document_idle",
-      "all_frames": true,
       "js": ["youtube.js"]
     }
-  ]
+  ],
+  "manifest_version": 2
 }
