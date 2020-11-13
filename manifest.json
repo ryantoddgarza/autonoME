@@ -1,9 +1,8 @@
 {
   "name": "autonoME",
   "description": "Kindly dismiss some of YouTube's recommendation components. For the times when you just want to use it like a search engine.",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "author": "Ryan Todd Garza",
-  "permissions": ["activeTab"],
   "content_scripts": [
     {
       "matches": ["https://*.youtube.com/*"],
