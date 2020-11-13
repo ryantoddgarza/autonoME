@@ -23,3 +23,7 @@ If you have any comments, questions, or suggestions regarding autonoME, [please 
 Bugs are tracked via [issues](https://github.com/ryantoddgarza/autonoME/issues).
 
 Open all pull requests against the [master branch](https://github.com/ryantoddgarza/autonoME/tree/master).
+
+### License
+
+[MIT](https://github.com/ryantoddgarza/autonoME/blob/master/LICENSE)
