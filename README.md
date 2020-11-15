@@ -1,6 +1,6 @@
 # autonoME
 
-autonoME is a Chrome extension that hides some of YouTube's recommendation components, allowing you to engage with the content in a more autonomous way.
+autonoME is a Chrome extension that hides select YouTube components purposed to algorithmically suggest content, allowing you to engage with the content in a more autonomous way.
 
 ## Installation
 
