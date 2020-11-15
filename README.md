@@ -1,14 +1,17 @@
 # autonoME
 
-autonoME hides some of YouTube's recommendation components, allowing you to engage with the site in a more autonomous way.
+autonoME is a Chrome extension that hides some of YouTube's recommendation components, allowing you to engage with the content in a more autonomous way.
 
 ## Installation
 
 ### Chrome Web Store
 
-autonoME has been submitted to the Chrome Web Store and is currently under review. Please check back for a link to the extension on the web store or install manually. _Please note that manual installation also requires manual updates_.
+1. Navigate to [autonoME on the Chrome Web Store](https://chrome.google.com/webstore/detail/autonome/ejffjoifollhhakdacnepnkoidpjkhdg).
+2. Select _Add to Chrome_.
 
 ### Manual install from zip
+
+_Please note that manual installation also requires manual updates_.
 
 1. Download the project as a ZIP from [GitHub](https://github.com/ryantoddgarza/autonoME).
 2. Unzip the download and move the project folder to your desired location.
