@@ -27,10 +27,11 @@ function hideComponentsById(componentIds) {
 function hideComponentsByTagName(componentTags) {
   componentTags.forEach((tagName) => {
     const HtmlCollection = document.getElementsByTagName(tagName);
+    const collectionList = Array.from(HtmlCollection);
 
-    for (let i = 0; i < HtmlCollection.length; i++) {
-      hideComponent(HtmlCollection[i]);
-    }
+    collectionList.forEach((el) => {
+      hideComponent(el);
+    });
   });
 }
 
