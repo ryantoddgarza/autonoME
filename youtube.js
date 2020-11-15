@@ -24,10 +24,14 @@ function hideComponentsById(componentIds) {
   });
 }
 
-function hideComponentsByTagName(HTMLcollection) {
-  for (let i = 0; i < HTMLcollection.length; i++) {
-    hideComponent(HTMLcollection[i]);
-  }
+function hideComponentsByTagName(componentTags) {
+  componentTags.forEach((tagName) => {
+    const HtmlCollection = document.getElementsByTagName(tagName);
+
+    for (let i = 0; i < HtmlCollection.length; i++) {
+      hideComponent(HtmlCollection[i]);
+    }
+  });
 }
 
 function disableAutoplay() {
@@ -69,10 +73,7 @@ function handleIsResults() {
     'ytd-horizontal-card-list-renderer',
   ];
 
-  resultsComponentTags.forEach((tagName) => {
-    const tag = document.getElementsByTagName(tagName);
-    hideComponentsByTagName(tag);
-  });
+  hideComponentsByTagName(resultsComponentTags);
 }
 
 function runForCurrentPage() {
