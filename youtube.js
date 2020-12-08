@@ -126,22 +126,23 @@ function burst() {
   runBurst();
 }
 
-function onURLChange() {
-  burst();
-}
-
-function getURL() {
-  return window.location.href;
-}
+const url = {
+  onChange() {
+    burst();
+  },
+  get() {
+    return window.location.href;
+  },
+};
 
 function pollForURLChange() {
-  let currentPage = getURL();
+  let currentPage = url.get();
   const repeatRate = 1 * 1000;
 
   window.setInterval(() => {
-    if (getURL() !== currentPage) {
-      onURLChange();
-      currentPage = getURL();
+    if (url.get() !== currentPage) {
+      url.onChange();
+      currentPage = url.get();
     }
   }, repeatRate);
 }
