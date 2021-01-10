@@ -1,0 +1,16 @@
+{
+  "name": "autonoME",
+  "scripts": {
+    "zip": "zip --recurse-paths --verbose -X autonoME src/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ryantoddgarza/autonoME.git"
+  },
+  "author": "Ryan Todd Garza",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ryantoddgarza/autonoME/issues"
+  },
+  "homepage": "https://github.com/ryantoddgarza/autonoME#readme"
+}
