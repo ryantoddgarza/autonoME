@@ -1,4 +1,19 @@
-function hideComponent(el) {
+const util = {
+  getDisplay(el) {
+    return window.getComputedStyle(el, null).display;
+  },
+  debounce(callback, wait) {
+    let timerId = null;
+    return function (...args) {
+      clearTimeout(timerId);
+      timerId = setTimeout(() => {
+        callback(...args);
+      }, wait);
+    };
+  },
+};
+
+function hideElement(el) {
   const transitionTime = 1200;
 
   const setOpacity = () => {
@@ -10,36 +25,36 @@ function hideComponent(el) {
     el.style.display = 'none';
   };
 
-  setOpacity();
-  setTimeout(setDisplay, transitionTime);
+  if (el && util.getDisplay(el) !== 'none') {
+    setOpacity();
+    setTimeout(setDisplay, transitionTime);
+  }
 }
 
-function hideComponentsById(componentIds) {
-  componentIds.forEach((id) => {
+function hideElementsById(idList) {
+  idList.forEach((id) => {
     const el = document.getElementById(id);
-
-    if (el) {
-      hideComponent(el);
-    }
+    hideElement(el);
   });
 }
 
-function hideComponentsByTagName(componentTags) {
-  componentTags.forEach((tagName) => {
-    const HtmlCollection = document.getElementsByTagName(tagName);
+function hideElementsByTagName(tagList) {
+  tagList.forEach((tag) => {
+    const HtmlCollection = document.getElementsByTagName(tag);
     const collectionList = Array.from(HtmlCollection);
 
-    collectionList.forEach((el) => {
-      hideComponent(el);
-    });
+    collectionList.forEach((el) => hideElement(el));
   });
 }
 
 function disableAutoplay() {
   const AUTONAV_DISABLED = localStorage.getItem('yt.autonav::autonav_disabled');
-  const autonavState = JSON.parse(AUTONAV_DISABLED).data;
-  const isAutoplay = !autonavState;
+  if (!AUTONAV_DISABLED) {
+    return;
+  }
 
+  const autonavDisabled = JSON.parse(AUTONAV_DISABLED).data;
+  const isAutoplay = !autonavDisabled;
   const toggle = document.getElementById('toggle');
 
   if (!toggle) {
@@ -51,39 +66,32 @@ function disableAutoplay() {
   }
 }
 
-function handleCommon() {
-  const commonComponentIDs = ['notification-count'];
-  hideComponentsById(commonComponentIDs);
-}
-
 function handleIsHome() {
-  const homeComponentIDs = ['primary', 'top-container'];
-  hideComponentsById(homeComponentIDs);
+  const tagList = ['ytd-browse'];
+  hideElementsByTagName(tagList);
 }
 
 function handleIsWatch() {
-  const watchComponentIDs = ['related', 'comments'];
-  hideComponentsById(watchComponentIDs);
+  const idList = ['related', 'comments'];
+  hideElementsById(idList);
   disableAutoplay();
 }
 
 function handleIsResults() {
-  const resultsComponentTags = [
+  const tagList = [
     'ytd-shelf-renderer',
     'ytd-carousel-ad-renderer',
     'ytd-horizontal-card-list-renderer',
   ];
 
-  hideComponentsByTagName(resultsComponentTags);
+  hideElementsByTagName(tagList);
 }
 
 function runForCurrentPage() {
-  const currentPage = window.location.href;
-  const isHome = currentPage.endsWith('.com/');
-  const isResults = currentPage.includes('/results');
-  const isWatch = currentPage.includes('/watch');
-
-  handleCommon();
+  const currentPage = window.location.pathname;
+  const isHome = currentPage === '/';
+  const isResults = currentPage.startsWith('/results');
+  const isWatch = currentPage.startsWith('/watch');
 
   if (isHome) {
     handleIsHome();
@@ -98,58 +106,20 @@ function runForCurrentPage() {
   }
 }
 
-function burst() {
-  const burstRate = 1000;
-  const burstLength = 4000;
-  let intervalID = null;
+function observeDomChange() {
+  const handleChange = util.debounce(runForCurrentPage, 200);
+  const observer = new MutationObserver(handleChange);
+  const bodyNode = document.querySelector('body');
+  const config = {
+    childList: true,
+    subtree: true,
+  };
 
-  function start() {
-    intervalID = window.setInterval(() => {
-      runForCurrentPage();
-    }, burstRate);
-  }
-
-  function stop() {
-    window.clearTimeout(intervalID);
-  }
-
-  function duration(ms) {
-    return new Promise((resolve) => setTimeout(resolve, ms));
-  }
-
-  async function runBurst() {
-    start();
-    await duration(burstLength);
-    stop();
-  }
-
-  runBurst();
+  observer.observe(bodyNode, config);
 }
 
-const url = {
-  onChange() {
-    burst();
-  },
-  get() {
-    return window.location.href;
-  },
-};
-
-function pollForURLChange() {
-  let currentPage = url.get();
-  const repeatRate = 1 * 1000;
-
-  window.setInterval(() => {
-    if (url.get() !== currentPage) {
-      url.onChange();
-      currentPage = url.get();
-    }
-  }, repeatRate);
+function main() {
+  observeDomChange();
 }
 
-function init() {
-  burst();
-  pollForURLChange();
-}
-
-init();
+main();

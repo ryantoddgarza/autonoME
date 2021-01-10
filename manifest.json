@@ -1,7 +1,7 @@
 {
   "name": "autonoME",
-  "description": "Kindly dismiss some of YouTube's recommendation components. For the times when you just want to use it like a search engine.",
-  "version": "0.1.5",
+  "description": "autonoME is a Chrome extension that hides YouTube components purposed to algorithmically suggest content.",
+  "version": "0.2.0",
   "author": "Ryan Todd Garza",
   "content_scripts": [
     {
