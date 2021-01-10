@@ -1,6 +1,6 @@
 # autonoME
 
-autonoME is a Chrome extension that hides select YouTube components purposed to algorithmically suggest content, allowing you to engage with the content in a more autonomous way.
+autonoME is a Chrome extension that hides select YouTube components purposed to algorithmically suggest content; promoting more autonomous engagement.
 
 ## Installation
 
@@ -26,6 +26,18 @@ If you have any comments, questions, or suggestions regarding autonoME, [please 
 Bugs are tracked via [issues](https://github.com/ryantoddgarza/autonoME/issues).
 
 Open all pull requests against the [master branch](https://github.com/ryantoddgarza/autonoME/tree/master).
+
+### Develop
+
+1. Clone the git repository.
+2. Open [Chrome](https://www.google.com/chrome/) and navigate to [chrome://extensions/](chrome://extensions/).
+3. Enable _Developer mode_.
+4. Select _Load unpacked_ and select _src_ from the cloned repo as the extension directory.
+5. Click the _reload_ icon for changes to take effect.
+
+### Build
+
+The Chrome Web Store expects a ZIP file for upload. From inside the project's base directory, run `npm run zip` to generate a ZIP of the _src_ directory.
 
 ### License
 
